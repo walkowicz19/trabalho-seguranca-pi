@@ -19,8 +19,6 @@ Para este projeto, a escolha técnica recomendada e mais eficiente é **Containe
    * *Vantagem 1:* **Leveza e Desempenho:** Compartilha o kernel de forma otimizada com alocação dinâmica de memória.
    * *Vantagem 2:* **Reprodutibilidade Científica Total:** Qualquer membro da equipe ou o professor avaliador pode clonar o repositório e subir o laboratório idêntico com um único comando (`docker compose up -d`).
    * *Vantagem 3:* **Isolamento de Redes:** Permite criar sub-redes lógicas (`attacker_net`, `defense_net`, `internal_net`) para simular o perímetro de rede corporativa.
-3. **Abordagem Híbrida (Se o orientador exigir VM formalmente):**
-   * Pode-se subir 1 única máquina virtual Linux (Ubuntu Server) e executar o `docker-compose.yml` dentro dela. No entanto, o WSL2 já opera como uma VM de Tipo 1 (Hyper-V) nativa no Windows.
 
 ---
 
