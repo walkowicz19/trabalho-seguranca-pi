@@ -68,7 +68,6 @@ trabalho-seguranca-pi/
 O laboratório conta com um painel de monitoramento SOC para espelhamento em tempo real dos ataques e bloqueios gerados contra os contêineres Docker:
 
 * **URL de Acesso:** [http://localhost:5000](http://localhost:5000)
-* **Design System & Visual:** Redesenhado sob diretrizes de alta integridade do `DESIGN.md`, utilizando tela editorial quente (*warm-cream* `#f7f7f4`), *hairlines* de 1px, sem *AI slop*, e exclusivamente ícones vetoriais da biblioteca **Lucide Icons**.
 
 ![SOC Telemetria de Defesa Ativa](docs/images/soc_dashboard_redesigned.png)
 
