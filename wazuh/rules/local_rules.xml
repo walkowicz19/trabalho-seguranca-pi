@@ -1,0 +1,50 @@
+<group name="ai_defense,llamafirewall,suricata,">
+
+  <!-- 1. Regra para eventos gerais do LlamaFirewall -->
+  <rule id="100200" level="3">
+    <decoded_as>llamafirewall-json</decoded_as>
+    <field name="sensor">LlamaFirewall</field>
+    <description>LlamaFirewall: Evento de tráfego de IA processado</description>
+  </rule>
+
+  <!-- 2. Regra para Bloqueio de Prompt Injection -->
+  <rule id="100201" level="10">
+    <if_sid>100200</if_sid>
+    <field name="decision">BLOCK</field>
+    <field name="scanner_type">PROMPT_GUARD</field>
+    <description>LlamaFirewall: Ataque de Prompt Injection ou Jailbreak bloqueado com sucesso</description>
+    <mitre>
+      <id>T1059</id>
+    </mitre>
+  </rule>
+
+  <!-- 3. Regra para Bloqueio de Abuso de Ferramenta / Goal Hijacking -->
+  <rule id="100202" level="12">
+    <if_sid>100200</if_sid>
+    <field name="decision">BLOCK</field>
+    <field name="scanner_type">AGENT_ALIGNMENT</field>
+    <description>LlamaFirewall: Tentativa de Goal Hijacking / Manipulação de Ferramentas de IA bloqueada</description>
+    <mitre>
+      <id>T1078</id>
+    </mitre>
+  </rule>
+
+  <!-- 4. Regra para Bloqueio de Código Malicioso (CodeShield) -->
+  <rule id="100203" level="12">
+    <if_sid>100200</if_sid>
+    <field name="decision">BLOCK</field>
+    <field name="scanner_type">CODE_SHIELD</field>
+    <description>LlamaFirewall: Código malicioso ou payload destrutivo bloqueado pelo CodeShield</description>
+    <mitre>
+      <id>T1059.006</id>
+    </mitre>
+  </rule>
+
+  <!-- 5. Correlação SIEM: Suricata + LlamaFirewall no mesmo IP (Incidente Crítico) -->
+  <rule id="100210" level="14" frequency="2" timeframe="60">
+    <if_matched_sid>100201, 100202, 100203</if_matched_sid>
+    <same_field>client_ip</same_field>
+    <description>ALERTA CRÍTICO SIEM: Múltiplos ataques automatizados de IA correlacionados contra o mesmo host</description>
+  </rule>
+
+</group>

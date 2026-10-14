@@ -1,0 +1,124 @@
+﻿Centro Universitário Unieuro
+CURSO DE SISTEMAS DE INFORMAÇÃO 
+
+
+
+
+
+
+Gabriel Nascimento Feitosa Breguedo - Ícaro Cardoso da Silva 074042 -   Matheus Nery Walkowicz  077651 - Miguel - Yuri Bacelar de Almeida 076605
+
+
+
+
+
+
+
+
+
+
+                
+
+
+Mitigação de Ataques Cibernéticos Automatizados por Agentes de Inteligência Artificial utilizando Ferramentas Open Source - Tema/Título
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   Brasília - DF
+2026
+Introdução
+Agentes autônomos de inteligência artificial podem automatizar ataques cibernéticos, aumentando sua velocidade e escala. Como exemplo, a OpenAI (2026) relatou um incidente ocorrido em julho de 2026 envolvendo agentes de IA e sistemas da Hugging Face, evidenciando os riscos associados à atuação autônoma desses sistemas. Nesse cenário, ferramentas open source podem representar uma alternativa acessível para organizações que precisam detectar, bloquear e responder a ataques semelhantes.
+Referência:
+OPENAI. O incidente da Hugging Face e os próximos passos. 26 ago. 2026. Disponível em: https://openai.com/pt-BR/index/hugging-face-incident-and-the-road-ahead/. Acesso em: 28 set. 2026.
+Conceitos
+
+
+Open source: O código-fonte do software open source é projetado para ser acessado abertamente pelo público: todas as pessoas podem vê-lo, modificá-lo e distribuí-lo conforme suas necessidades. Red Hat
+
+
+Ataque cibernético: Uma tentativa de obter acesso não autorizado a serviços, recursos ou informações de um sistema, ou uma tentativa de comprometer sua integridade, disponibilidade ou confidencialidade. NIST
+Problema
+A dificuldade de empresas sem acesso a soluções comerciais avançadas em detectar e bloquear ataques cibernéticos automatizados por agentes de inteligência artificial.
+Hipóteses
+H1 - A utilização integrada de ferramentas open source de segurança pode permitir a detecção e o bloqueio de ataques automatizados realizados por agentes de inteligência artificial.
+H2 - Uma arquitetura baseada em ferramentas open source pode proporcionar uma resposta rápida e eficaz a ataques conduzidos por agentes de inteligência artificial, sem depender de soluções comerciais avançadas.
+Objetivo
+Avaliar a eficácia de ferramentas open source na detecção, bloqueio e resposta a ataques cibernéticos automatizados por agentes de inteligência artificial. 
+Objetivos específicos
+* Implementar o LlamaFirewall como mecanismo de proteção contra ações maliciosas de agentes de inteligência artificial.
+* Configurar o Suricata para identificação de tráfego malicioso associado aos ataques automatizados.
+* Integrar o Wazuh à arquitetura para monitoramento dos eventos e incidentes de segurança.
+* Mensurar a eficácia da arquitetura por meio das taxas de detecção, bloqueio, falsos positivos e tempo de resposta.
+* Comparar os resultados obtidos em ambientes com e sem a arquitetura de proteção.
+
+
+H1 — Viabilidade de ferramentas open source
+A utilização integrada de ferramentas open source de segurança pode proporcionar capacidade adequada de detecção, bloqueio e resposta a ataques automatizados realizados por agentes de inteligência artificial, considerando os requisitos de desempenho e eficácia estabelecidos.
+H2 — Necessidade de soluções complementares
+Uma arquitetura de segurança baseada em ferramentas open source pode apresentar diferentes níveis de desempenho na detecção, no bloqueio e na resposta a ataques conduzidos por agentes de inteligência artificial, podendo demandar soluções complementares para atender aos requisitos de eficácia estabelecidos.
+1. Definir as hipóteses
+Você apresenta H1 e H2 como hipóteses concorrentes.
+2. Definir os critérios de avaliação
+Antes dos testes, estabeleça o que significa “adequado”. Por exemplo:
+* taxa de detecção;
+* taxa de bloqueio;
+* tempo de resposta;
+* quantidade de ataques identificados;
+* falsos positivos;
+* utilização de recursos;
+* capacidade de lidar com diferentes padrões de ataque.
+Isso é importante porque você não pode chegar ao final e decidir que uma hipótese é “melhor” apenas pela impressão dos resultados.
+3. Realizar os experimentos
+Você testa a arquitetura open source em cenários controlados de ataques realizados por agentes de IA.
+Se possível, pode estruturar os testes em diferentes níveis de dificuldade.
+4. Analisar os resultados
+Aqui você compara os resultados obtidos com os critérios definidos anteriormente.
+Por exemplo:
+“A arquitetura apresentou taxa de detecção de X%, bloqueio de Y% e tempo médio de resposta de Z segundos.”

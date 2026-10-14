@@ -1,0 +1,49 @@
+%YAML 1.1
+---
+# Configuração Suricata otimizada para detecção de tráfego de ataques automatizados
+default-log-dir: /var/log/suricata/
+
+stats:
+  enabled: yes
+  interval: 10
+
+outputs:
+  - fast:
+      enabled: yes
+      filename: fast.log
+      append: yes
+
+  - eve-log:
+      enabled: yes
+      filetype: regular
+      filename: eve.json
+      types:
+        - alert:
+            payload: yes
+            payload-buffer-size: 4kb
+            packet: yes
+            metadata: yes
+            http-body: yes
+            http-body-printable: yes
+        - http:
+            extended: yes
+        - stats:
+            totals: yes
+            threads: no
+            deltas: no
+
+default-rule-path: /etc/suricata/rules
+rule-files:
+  - ai_agent_attacks.rules
+
+af-packet:
+  - interface: eth0
+    cluster-id: 99
+    cluster-type: cluster_flow
+    defrag: yes
+
+app-layer:
+  protocols:
+    http:
+      enabled: yes
+      memcap: 64mb

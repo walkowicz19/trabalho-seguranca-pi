@@ -1,0 +1,14 @@
+# Regras Suricata Personalizadas para Mitigação de Ataques Automatizados por Agentes de IA
+# Trabalho de Segurança / PI - Unieuro 2026
+
+# 1. Detecção de Prompt Injection direto em requisições HTTP
+alert http any any -> any any (msg:"[AI-DEFENSE] Tentativa de Prompt Injection detectada (Ignore Instructions)"; flow:to_server,established; content:"ignore"; nocase; http_client_body; content:"instructions"; distance:0; nocase; sid:1000001; rev:1; classtype:attempted-user; metadata:created_at 2026_10_13;)
+alert http any any -> any any (msg:"[AI-DEFENSE] Tentativa de Jailbreak detectada (DAN / Developer Mode)"; flow:to_server,established; content:"developer mode"; nocase; http_client_body; sid:1000002; rev:1; classtype:attempted-user; metadata:created_at 2026_10_13;)
+alert http any any -> any any (msg:"[AI-DEFENSE] Tentativa de Exfiltração de System Prompt de IA"; flow:to_server,established; content:"system prompt"; nocase; http_client_body; sid:1000003; rev:1; classtype:attempted-user; metadata:created_at 2026_10_13;)
+
+# 2. Detecção de Abuso de Ferramentas / Goal Hijacking em nível de tráfego de rede
+alert http any any -> any any (msg:"[AI-DEFENSE] Tentativa de execução de comando Shell por Agente de IA"; flow:to_server,established; content:"shell_exec"; nocase; http_client_body; sid:1000004; rev:1; classtype:attempted-admin; metadata:created_at 2026_10_13;)
+alert http any any -> any any (msg:"[AI-DEFENSE] Tráfego de exploração SQL Injection automatizada"; flow:to_server,established; content:"or 1=1"; nocase; http_client_body; sid:1000005; rev:1; classtype:attempted-user; metadata:created_at 2026_10_13;)
+
+# 3. Reconhecimento Automatizado e Varredura Anômala de Agentes de IA
+alert http any any -> any any (msg:"[AI-DEFENSE] User-Agent de Agente Ofensivo Autônomo identificado"; flow:to_server,established; content:"User-Agent|3a| AIAttackAgent"; nocase; http_header; sid:1000006; rev:1; classtype:web-application-attack; metadata:created_at 2026_10_13;)

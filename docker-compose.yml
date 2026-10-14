@@ -1,0 +1,110 @@
+services:
+  # 1. Aplicação Alvo (Vítima) com endpoints de LLM e ferramentas corporativas
+  target:
+    build:
+      context: ./target
+      dockerfile: Dockerfile
+    container_name: target-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    networks:
+      - defense_net
+      - internal_net
+    volumes:
+      - ./logs/target:/var/log/target
+      - ./target:/app
+    environment:
+      - TARGET_LOG_DIR=/var/log/target
+      - PYTHONUNBUFFERED=1
+
+  # 2. LlamaFirewall (Proxy / LLM Guardrail)
+  llamafirewall:
+    build:
+      context: ./llamafirewall
+      dockerfile: Dockerfile
+    container_name: llamafirewall-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - attacker_net
+      - defense_net
+      - internal_net
+    environment:
+      - TARGET_HOST=http://target:8000
+      - LLAMAFIREWALL_LOG_DIR=/var/log/llamafirewall
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./logs/llamafirewall:/var/log/llamafirewall
+      - ./llamafirewall:/app
+    depends_on:
+      - target
+
+  # 3. Suricata (Network Intrusion Detection System)
+  suricata:
+    build:
+      context: ./suricata
+      dockerfile: Dockerfile
+    container_name: suricata-nids
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_NICE
+    networks:
+      - defense_net
+      - internal_net
+    volumes:
+      - ./logs/suricata:/var/log/suricata
+    command: -i eth0 -c /etc/suricata/suricata.yaml -v
+
+  # 4. Dashboard de Espelhamento em Tempo Real (SOC Mirroring)
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: soc-dashboard
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    networks:
+      - attacker_net
+      - defense_net
+      - internal_net
+    volumes:
+      - ./logs/llamafirewall:/var/log/llamafirewall:ro
+      - ./logs/target:/var/log/target:ro
+      - ./logs/suricata:/var/log/suricata:ro
+      - ./wazuh/alerts:/var/log/wazuh:ro
+      - ./dashboard:/app
+      - .:/app/project_root:ro
+    environment:
+      - TARGET_HOST=http://target:8000
+      - LLAMA_HOST=http://llamafirewall:8080
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - target
+      - llamafirewall
+
+  # 5. Agente Atacante de IA (AI Attack Agent)
+  attacker:
+    build:
+      context: ./attacker
+      dockerfile: Dockerfile
+    container_name: ai-attacker-agent
+    networks:
+      - attacker_net
+      - defense_net
+    environment:
+      - PYTHONUNBUFFERED=1
+    profiles:
+      - manual # Só executa quando chamado manualmente: docker compose run attacker
+
+networks:
+  attacker_net:
+    driver: bridge
+  defense_net:
+    driver: bridge
+  internal_net:
+    driver: bridge

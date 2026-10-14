@@ -1,0 +1,5 @@
+<!-- Decodificador Wazuh para eventos do LlamaFirewall (JSON) -->
+<decoder name="llamafirewall-json">
+  <prematch>^{\s*"timestamp":.*"sensor":\s*"LlamaFirewall"</prematch>
+  <plugin_decoder>JSON_Decoder</plugin_decoder>
+</decoder>

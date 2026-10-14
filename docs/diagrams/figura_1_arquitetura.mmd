@@ -1,0 +1,29 @@
+flowchart TB
+    subgraph ATK [Sub-Rede Atacante: attacker_net]
+        A1["Agente ReAct Solo"]
+        A2["Swarm 4 Sub-Agentes"]
+        A3["CrewAI Red Team"]
+    end
+
+    subgraph DEF [Sub-Rede Defensiva: defense_net]
+        SURI["Suricata NIDS - Inspeção L3/L7"]
+        PG["Prompt Guard - Jailbreak / Injeção"]
+        AA["Agent Alignment - Tool Hijacking"]
+        CS["Code Shield - Execução Remota"]
+    end
+
+    subgraph INT [Sub-Rede Corporativa: internal_net]
+        TARGET["Target API Vítima :8000"]
+    end
+
+    subgraph SIEM [Inteligência e Telemetria]
+        WAZUH["Wazuh SIEM - Regra 100210"]
+        DASH["SOC Mirror Dashboard :5000"]
+    end
+
+    A1 & A2 & A3 -->|"Tráfego Ofensivo"| SURI
+    SURI -->|"Proxy Inspecionado :8080"| PG & AA & CS
+    PG & AA & CS -->|"Requisição Permitida HTTP 200"| TARGET
+    PG & AA & CS -->|"Logs de Bloqueio HTTP 403"| WAZUH
+    PG & AA & CS -->|"Stream SSE em Tempo Real"| DASH
+    SURI -->|"Alertas de Pacotes eve.json"| WAZUH

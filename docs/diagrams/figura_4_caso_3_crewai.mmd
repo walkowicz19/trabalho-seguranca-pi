@@ -1,0 +1,21 @@
+flowchart TB
+    subgraph LLM_CLOUD [Nuvem Google AI Studio]
+        GEMINI["Google Gemini 2.5 Flash Lite"]
+    end
+
+    subgraph CREW [Equipe Colaborativa de Agentes CrewAI]
+        RED["Red Team Penetration Tester<br/>Especialista em Evasão e Payloads"]
+        AUDIT["Senior AI Defense Auditor<br/>Auditor de Conformidade e OWASP LLM"]
+    end
+
+    subgraph DEFENSE [Perímetro Defensivo]
+        GW["LlamaFirewall Gateway :8080"]
+        API["Target API :8000"]
+    end
+
+    GEMINI -->|"Inferência e Raciocínio"| RED
+    GEMINI -->|"Análise Crítica e Avaliação"| AUDIT
+    RED -->|"Testes Ofensivos Multicondicionais"| GW
+    GW -->|"Intercepção Defensiva HTTP 403"| RED
+    GW -->|"Telemetria de Resposta"| AUDIT
+    AUDIT -->|"Relatório Técnico Consolidado"| REP["Relatório Executivo de Auditoria"]

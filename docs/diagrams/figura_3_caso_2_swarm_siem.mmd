@@ -1,0 +1,16 @@
+flowchart LR
+    LIDER["Agente Líder (Detecta Bloqueio Solo)"] -->|"Protocolo de Escalação"| SWARM{"Despacho de Swarm (Threads Paralelas)"}
+
+    SWARM -->|"Vetor 1: Jailbreak"| SA["ALPHA: Persona Hijacking"]
+    SWARM -->|"Vetor 2: Shell RCE"| SB["BETA: Shell Misuse"]
+    SWARM -->|"Vetor 3: Banco Dados"| SC["GAMMA: SQL Injection"]
+    SWARM -->|"Vetor 4: Payload Script"| SD["DELTA: Injeção Destrutiva"]
+
+    SA -->|"POST /api/chat"| PG["Prompt Guard: HTTP 403"]
+    SB -->|"POST /api/tools"| AA1["Agent Alignment: HTTP 403"]
+    SC -->|"POST /api/tools"| AA2["Agent Alignment: HTTP 403"]
+    SD -->|"POST /api/chat"| CS["Code Shield: HTTP 403"]
+
+    PG & AA1 & AA2 & CS -->|"Logs Quase Simultâneos (12ms)"| SIEM["Wazuh SIEM: Regra 100210 (Severidade 14 Crítica)"]
+
+    SIEM -->|"Ação Ativa"| RESPOSTA["Contenção e Bloqueio de IP: Alvo 100% Preservado"]
