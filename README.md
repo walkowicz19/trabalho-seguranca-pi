@@ -5,7 +5,6 @@ Este repositório contém o ambiente experimental e a implementação de referê
 * **Autores:** Gabriel Nascimento Feitosa Breguedo, Ícaro Cardoso da Silva, Matheus Nery Walkowicz, Miguel, Yuri Bacelar de Almeida.
 * **Ano:** 2026
 * **Repositório Git:** [https://github.com/walkowicz19/trabalho-seguranca-pi.git](https://github.com/walkowicz19/trabalho-seguranca-pi.git)
-* **Documento Acadêmico Completo (TCC / ABNT):** [relatorio_tcc_seguranca_pi.pdf](relatorio_tcc_seguranca_pi.pdf)
 
 ---
 
